@@ -4,6 +4,8 @@
 
 * Fork and clone this repo as usual
 * Update the client app ID in the script element inside of index.html to be your SoundCloud API key
+* `ruby jukebox.rb`
+* Browse to `http://localhost:4567/`
 
 # TODO
 
