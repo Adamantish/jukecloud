@@ -4,6 +4,7 @@
 
 * Fork and clone this repo as usual
 * Update the client app ID in the script element inside of index.html to be your SoundCloud API key
+* `bundle`
 * `ruby jukebox.rb`
 * Browse to `http://localhost:4567/`
 
@@ -17,4 +18,8 @@
 
 * Refactor your code so that you create an Object of type Track, which knows how to render itself as HTML
 
+Some ideas for extensions:
+
 * Refactor your code to put your tracks in 3D
+
+* Show a carousel of some recently added content
