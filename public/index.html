@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <title>My Amazing SoundCloud Catalog</title>
+    <title>My SoundCloud Jukebox</title>
     <link href="bootstrap.min.css" rel="stylesheet" type="
     text/css" />
 
@@ -16,19 +16,20 @@
 
   <body class="text-center">
 
-    <h1>My Amazing SoundCloud Catalog</h1>
+    <div id="navbar">
+      <img src="/img/soundcloud_icon.png">
+    </div>
 
-<!--       <div class="modal-background">
-        <div class="modal">
-          <h3>My Amazing Modal</h3>
-          <p>Hello World</p>
-        </div>
-      </div> -->
+
+    <h1>Juke Cloud</h1>
+
 
     <input type="text" id="search" onchange="api.doSearch()" />
 
     <div id="catalog">
+      
     </div>
+
   <script type="text/javascript" src="modal.js"></script>
   <script type="text/javascript" src="my_soundcloud.js"></script>
   </body>

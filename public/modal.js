@@ -16,7 +16,7 @@ MyModal.prototype.render = function() {
   var heading = document.createElement('h3');
   heading.innerText = this.title
   var paragraph = document.createElement('p');
-  paragraph.innerText = this.description
+  paragraph.innerHTML = this.content
 
   modal.appendChild(heading)
   modal.appendChild(paragraph)

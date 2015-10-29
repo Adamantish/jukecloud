@@ -1,17 +1,66 @@
 
 #catalog {
-
+  display: inline-flex;
 }
 
+#catalog ul {
+  width: 40em;
+}
+
+#catalog ul li {
+  margin: 1em;
+}
 .catalog-entry {
   margin: 1em;
+    width: 10em;
+  height: 19em;
+  border: solid 1px #C5C5C5;
+  padding: 1em;
+  display: inline-block;
+}
+
+.image-container {
+  background-image: url("img/default_image.png");
+  width: 100px;
+  height: 100px;
+  margin: auto;
 }
 
 #catalog-entry img {
   margin: 1em;
+
 }
 
 #catalog-entry span {
   margin: 0 auto;
   width: 99%;
 }
+
+#navbar {
+  width: 100%;
+  position: fixed;
+  background-color: #757575;
+  z-index: 1;
+  top: 0;
+  text-align: left;
+}
+
+#navbar img {
+  z-index: 2;
+
+}
+
+#search {
+  font-size: 1.5em;
+  margin-bottom: 1.5em;
+  font-style: italic;
+  text-align: center;
+}
+
+body {
+  font-family: Futura;
+  position: relative;
+  top: 40px;
+}
+
+
