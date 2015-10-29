@@ -1,0 +1,48 @@
+ .modal-background {
+  width: 100%;
+  height: 100%;
+}
+
+/*
+body {
+
+  padding: 2em;
+  padding-right: 2em;
+  font-family: Futura;
+
+}*/
+
+.my-modal:before {
+  content: "x";
+  float: right;
+  border: 1px solid rgba(1,1,1,0.5);
+  padding: 0.2em 0.5em 0.5em 0.5em;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+
+.my-modal {
+
+  border: 1px solid #333;
+  padding: 1em;
+  background-color: #D8C5FF;
+  width: 35em;
+  margin-top: 3em;
+  margin-right: auto;
+  margin-left: auto;
+  box-shadow: 0.5em 0.5em 0.5em;
+  border-radius: 1em; 
+  transition: background-color 1s ease-in;
+
+}
+.modal-background {
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(1, 1, 1, 0.8);
+  transition: background-color 1s ease-in;
+
+}
+
