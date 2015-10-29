@@ -19,7 +19,7 @@
 
     <script>
       SC.initialize({
-        client_id: 'YOUR KEY HERE'
+        client_id: 'fd69671c33c9f89d3015a61724293122'
       });
 
       function doSearch() {
@@ -30,8 +30,13 @@
 
         // Search soundcloud for artists
         SC.get('/tracks', { q: searchTerm, license: 'cc-by-sa' }, function(tracks) {
+            var catalog = document.getElementById("catalog")
+            catalog.innerHTML = ""
             for(track in tracks) {
-              console.log(tracks[track]);
+              
+              var image = document.createElement("img")
+              image.setAttribute("src", tracks[track].artwork_url || "")
+              catalog.appendChild(image)
             }
           }
         );
