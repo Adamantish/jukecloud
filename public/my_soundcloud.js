@@ -18,20 +18,9 @@ API.prototype.doSearch = function() {
 
         var t = apiTracks[i]
 
-        var catalogEntry = document.createElement("div")
-        catalogEntry.setAttribute("class","catalog-entry")
+        track = new Track(catalog, t.title, t.artwork_url, t.description)
 
-        var image = document.createElement("img")
-        image.setAttribute("src", t.artwork_url || "")
-
-        var entryTitle = document.createElement("span")
-        // entryTitle.innerText = tracks[track].
-        // entryTitle.setAttribute('class', 'entry-title')
-        catalogEntry.appendChild(image)
-
-        catalog.appendChild(catalogEntry)
-
-        // new Track(catalog, t.title, t.artwork_url, t.description)
+        track.addMeToCatalog()
 
       }
     }
@@ -60,14 +49,16 @@ Track.prototype.addMeToCatalog = function() {
         catalogEntry.setAttribute("class","catalog-entry")
 
         var image = document.createElement("img")
-        image.setAttribute("src", tracks[track].artwork_url || "")
+        image.setAttribute("src", this.artwork_url || "")
 
         var entryTitle = document.createElement("span")
-        // entryTitle.innerText = tracks[track].
+        entryTitle.innerText = this.title
         // entryTitle.setAttribute('class', 'entry-title')
         catalogEntry.appendChild(image)
+        catalogEntry.appendChild(entryTitle)
 
         catalog.appendChild(catalogEntry)
+
 }
 
 var api = new API
