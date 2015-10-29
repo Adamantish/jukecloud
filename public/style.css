@@ -1,1 +1,17 @@
-style.css
+
+#catalog {
+
+}
+
+.catalog-entry {
+  margin: 1em;
+}
+
+#catalog-entry img {
+  margin: 1em;
+}
+
+#catalog-entry span {
+  margin: 0 auto;
+  width: 99%;
+}
