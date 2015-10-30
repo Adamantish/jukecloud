@@ -13,7 +13,6 @@ function App() {
   });
 
   this.catalog = new Catalog()
-    // console.log("SC re-initialized")
 
 };
 
@@ -44,17 +43,16 @@ API.prototype.doSearch = function() {
   var searchTerm = document.getElementById('search').value;
 
   // Encode spaces
-  searchTerm = searchTerm.replace(" ", "+");
+  searchTerm = searchTerm.replace(" ", "%20");
 
   // Search soundcloud for artists
-  SC.get('/tracks', { q: searchTerm, license: 'cc-by-sa' }, function(apiTracks) {
+  SC.get('/tracks', { q: searchTerm }, function(apiTracks) {
       
       app.catalog.element.innerHTML = ""
       for(i in apiTracks) {
 
         var t = apiTracks[i]
-
-        track = new Track(app.catalog, t.title, t.artwork_url, t.description)
+        track = new Track(app.catalog, t.title, t.artwork_url, t.description, t.uri, t.genre, t.tag_list, t.duration, t.user.avatar_url, t.user.username, t.playback_count)
         track.addMeToCatalog()
 
       }
@@ -65,6 +63,8 @@ API.prototype.doSearch = function() {
 function Catalog() {
 
   this.tracks = [];
+  var catalog =  document.getElementById("catalog");
+  var ul = document.createElement('ul')
   this.element = document.getElementById("catalog");
 
   // return this.element
@@ -73,13 +73,20 @@ function Catalog() {
 
 Catalog.prototype = new App()
 
-function Track(catalog, title, artwork_url, description, numOfPlays) {
+function Track(catalog, title, artwork_url, description, uri, genre, tags, duration, userAvatar, username, numOfPlays) {
 
   this.catalog = catalog;
   this.title = title;
   this.artwork_url = artwork_url;
   this.description = description;
-  this.numOfPlays = numOfPlays
+  this.uri = uri;
+  this.tags = tags
+  this.genre = genre;
+  this.duration = duration; 
+  this.userAvatar = userAvatar;
+  this.username = username;
+  this.numOfPlays = numOfPlays;
+
 
   this.makeModalContent()
 
@@ -89,35 +96,41 @@ Track.prototype = new Catalog()
 
 Track.prototype.addMeToCatalog = function() {
 
-        var catalogEntry = document.createElement("div")
-        catalogEntry.setAttribute("class","catalog-entry")
+  var catalogEntry = document.createElement("div")
+  catalogEntry.setAttribute("class", "catalog-entry")
 
-        var image = document.createElement("img")
-        var imageContainer = document.createElement("div")
-        var list = document.createElement("ul")
-        var catalogIndex = app.catalog.tracks.length
+  var image = document.createElement("img")
+  var imageContainer = document.createElement("div")
+  // var list = document.createElement("ul")
+  var catalogIndex = app.catalog.tracks.length
 
-        imageContainer.setAttribute("class", "image-container")
-        image.setAttribute("src", this.artwork_url || "")
-        catalogEntry.setAttribute("onclick", "app.catalog.tracks[" + catalogIndex + "].showMyModal()")
+  imageContainer.setAttribute("class", "image-container")
+  image.setAttribute("src", this.artwork_url || "")
+  catalogEntry.setAttribute("onclick", "app.catalog.tracks[" + catalogIndex + "].showMyModal()")
 
-        var entryTitle = document.createElement("div")
-        entryTitle.innerText = this.title
-        // entryTitle.setAttribute('class', 'entry-title')
+  var entryTitle = document.createElement("p")
+  entryTitle.innerText = this.title
+  // entryTitle.setAttribute('class', 'entry-title')
 
-        imageContainer.appendChild(image)
-        catalogEntry.appendChild(imageContainer)
-        catalogEntry.appendChild(entryTitle)
-        list.appendChild(catalogEntry)
+  imageContainer.appendChild(image)
+  catalogEntry.appendChild(imageContainer)
+  catalogEntry.appendChild(entryTitle)
+  // list.appendChild(catalogEntry)
 
-        app.catalog.element.appendChild(catalogEntry)
-        app.catalog.tracks.push(this)
+  app.catalog.element.appendChild(catalogEntry)
+  app.catalog.tracks.push(this)
 
 }
 
 Track.prototype.makeModalContent = function() {
-  var html = !!this.artwork_url ? "<img src='" + this.artwork_url + "'>" : ""
+  
+  var html = ""
+  if (!!this.artwork_url){
+    html = "<img src='" + this.artwork_url + "'>" 
+  };
+
   html = html + "<p>" + this.description + "</p>"
+  html = html + "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=" + this.uri + "&amp;color=0066cc'></iframe>"
   this.content = html;
   // return this.content
 }

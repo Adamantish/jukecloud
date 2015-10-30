@@ -30,7 +30,7 @@ body {
 
 .my-modal {
 
-  /*border: 1px solid #E06317;*/
+  position: relative;
   padding: 1em;
   background-color: white;
   width: 35em;
