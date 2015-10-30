@@ -27,12 +27,12 @@ App.prototype.showMyModal = function() {
 
 }
 
+
 App.prototype.removeMyModal = function() {
   var removeMe = document.getElementsByClassName('modal-background')[0]
   
   // Trying to get it to wait for the fade out before removing the modal. No luck.
-  removeMe.addEventListener('transitionend', helpers.removeMeFromDom(removeMe))
-
+  removeMe.addEventListener('transitionend', function() {helpers.removeMeFromDom(removeMe)})
   removeMe.setAttribute("style","background-color : rgba(1, 1, 1, 0)")
   // removeMe.removeEventListener('transitionend', helpers.removeMeFromDom(removeMe), false)
 }
@@ -71,7 +71,14 @@ function Catalog() {
 
 };
 
+
 Catalog.prototype = new App()
+
+Catalog.prototype.addTrack = function(track) {
+
+    this.element.appendChild(track.rendered)
+    this.tracks.push(track)
+}
 
 function Track(catalog, title, artwork_url, description, uri, genre, tags, duration, userAvatar, username, numOfPlays) {
 
@@ -92,16 +99,16 @@ function Track(catalog, title, artwork_url, description, uri, genre, tags, durat
 
 };
 
+
 Track.prototype = new Catalog()
 
-Track.prototype.addMeToCatalog = function() {
+Track.prototype.addMeToCatalog = function(catalog) {
 
   var catalogEntry = document.createElement("div")
   catalogEntry.setAttribute("class", "catalog-entry")
 
   var image = document.createElement("img")
   var imageContainer = document.createElement("div")
-  // var list = document.createElement("ul")
   var catalogIndex = app.catalog.tracks.length
 
   imageContainer.setAttribute("class", "image-container")
@@ -110,15 +117,14 @@ Track.prototype.addMeToCatalog = function() {
 
   var entryTitle = document.createElement("p")
   entryTitle.innerText = this.title
-  // entryTitle.setAttribute('class', 'entry-title')
 
   imageContainer.appendChild(image)
   catalogEntry.appendChild(imageContainer)
   catalogEntry.appendChild(entryTitle)
-  // list.appendChild(catalogEntry)
 
-  app.catalog.element.appendChild(catalogEntry)
-  app.catalog.tracks.push(this)
+  this.rendered = catalogEntry
+
+  app.catalog.addTrack(this)
 
 }
 
@@ -129,7 +135,6 @@ Track.prototype.makeModalContent = function() {
   if (!!this.artwork_url){
     html = html + "<img src='" + this.artwork_url + "'>" 
   };
-
 
   html = html + "<p>" + this.description + "</p>"
   

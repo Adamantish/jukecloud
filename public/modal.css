@@ -57,3 +57,7 @@ body {
 .my-modal img {
   margin: 1em;
 }
+.my-modal p 
+{
+  overflow-y:scroll;
+}
