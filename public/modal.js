@@ -19,6 +19,10 @@ MyModal.prototype.render = function() {
   var paragraph = document.createElement('p');
   paragraph.innerHTML = this.content
 
+  img = $(paragraph).find('img')
+  $(img).on("load",function() {
+    $(this).animate({opacity:1})
+  })
   modal.appendChild(heading)
   modal.appendChild(paragraph)
   container.appendChild(modal)

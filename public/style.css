@@ -21,6 +21,7 @@ body {
 }
 
 .catalog-entry {
+  
   margin: 1em;
   width: 10em;
   height: 16em;
@@ -30,13 +31,18 @@ body {
   overflow: hidden;
   border-radius: 5px;
   background-color: white;
+
 }
 
 
 .catalog-entry p {
   height: 7em;
   padding: 1em;
-  overflow: hidden
+  overflow: hidden;
+}
+
+.catalog-entry img {
+  opacity: 0
 }
 
 .image-container {

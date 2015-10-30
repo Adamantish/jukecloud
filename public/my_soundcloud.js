@@ -1,3 +1,9 @@
+
+// $('.catalog-entry').ready(function() {
+//   console.log( event.currentTarget);
+//   $(event.currentTarget).animate({opacity:1});
+// })
+
 function Helpers() {};
 
 Helpers.prototype.removeMeFromDom = function(element) {
@@ -33,7 +39,8 @@ App.prototype.removeMyModal = function() {
   
   // Trying to get it to wait for the fade out before removing the modal. No luck.
   removeMe.addEventListener('transitionend', function() {helpers.removeMeFromDom(removeMe)})
-  removeMe.setAttribute("style","background-color : rgba(1, 1, 1, 0)")
+  window.getComputedStyle(removeMe).opacity
+  removeMe.setAttribute("style","background-color : rgba(1, 1, 1, 0)");
   // removeMe.removeEventListener('transitionend', helpers.removeMeFromDom(removeMe), false)
 }
 
@@ -108,11 +115,14 @@ Track.prototype.addMeToCatalog = function(catalog) {
   catalogEntry.setAttribute("class", "catalog-entry")
 
   var image = document.createElement("img")
+  image.setAttribute("src", this.artwork_url || this.avatar_url || "")
+  image.addEventListener("load", function() {$(image).animate({opacity:1})})
   var imageContainer = document.createElement("div")
   var catalogIndex = app.catalog.tracks.length
 
   imageContainer.setAttribute("class", "image-container")
-  image.setAttribute("src", this.artwork_url || this.avatar_url || "")
+  
+
   catalogEntry.setAttribute("onclick", "app.catalog.tracks[" + catalogIndex + "].showMyModal()")
 
   var entryTitle = document.createElement("p")
@@ -133,7 +143,9 @@ Track.prototype.makeModalContent = function() {
   var html = "<p><i>by " + this.username + "</i></p>"
 
   if (!!this.artwork_url){
-    html = html + "<img src='" + this.artwork_url + "'>" 
+    html = html 
+    html = html + "<div class = 't300img-container'>"
+    html = html + "<img src='" + this.artwork_url.replace( "large", "t300x300") + "'></div>"
   };
 
   html = html + "<p>" + this.description + "</p>"
