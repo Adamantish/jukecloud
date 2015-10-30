@@ -6,6 +6,7 @@ var MyModal = function(title, content){
 
 MyModal.prototype.render = function() {
 
+  // modal goes off bottom of screen with a long description. Would be good to make it scrollable
   var container = document.createElement("div");
   container.setAttribute("class", "modal-background");
 
