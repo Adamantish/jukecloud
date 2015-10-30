@@ -105,7 +105,7 @@ Track.prototype.addMeToCatalog = function() {
   var catalogIndex = app.catalog.tracks.length
 
   imageContainer.setAttribute("class", "image-container")
-  image.setAttribute("src", this.artwork_url || "")
+  image.setAttribute("src", this.artwork_url || this.avatar_url || "")
   catalogEntry.setAttribute("onclick", "app.catalog.tracks[" + catalogIndex + "].showMyModal()")
 
   var entryTitle = document.createElement("p")
@@ -124,12 +124,15 @@ Track.prototype.addMeToCatalog = function() {
 
 Track.prototype.makeModalContent = function() {
   
-  var html = ""
+  var html = "<p><i>by " + this.username + "</i></p>"
+
   if (!!this.artwork_url){
-    html = "<img src='" + this.artwork_url + "'>" 
+    html = html + "<img src='" + this.artwork_url + "'>" 
   };
 
+
   html = html + "<p>" + this.description + "</p>"
+  
   html = html + "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=" + this.uri + "&amp;color=0066cc'></iframe>"
   this.content = html;
   // return this.content
