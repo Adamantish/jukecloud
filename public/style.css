@@ -52,6 +52,10 @@ body {
   margin: auto;
 }
 
+.hidden-cache-image {
+  display: none;
+}
+
 #catalog-entry img {
   margin: 2em;
 

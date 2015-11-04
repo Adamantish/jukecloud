@@ -56,6 +56,7 @@ API.prototype.doSearch = function() {
   SC.get('/tracks', { q: searchTerm }, function(apiTracks) {
       
       app.catalog.element.innerHTML = ""
+      // app.catalog.addCacheOnLoad()
       for(i in apiTracks) {
 
         var t = apiTracks[i]
@@ -78,7 +79,6 @@ function Catalog() {
 
 };
 
-
 Catalog.prototype = new App()
 
 Catalog.prototype.addTrack = function(track) {
@@ -87,20 +87,29 @@ Catalog.prototype.addTrack = function(track) {
     this.tracks.push(track)
 }
 
+Catalog.prototype.addCacheOnLoad = function() {
+  $(this.element).on("load", function() {
+    
+  })
+};
+
+
 function Track(catalog, title, artwork_url, description, uri, genre, tags, duration, userAvatar, username, numOfPlays) {
 
   this.catalog = catalog;
   this.title = title;
-  this.artwork_url = artwork_url;
+  this.artwork_url = artwork_url || "";
+  this.artwork_url_300 = this.artwork_url.replace( "large", "t300x300")
+  this.userAvatar = userAvatar;
+  this.default_image_url = artwork_url || userAvatar || ""
+  this.default_image_url_300 = this.default_image_url.replace( "large", "t300x300")
   this.description = description;
   this.uri = uri;
   this.tags = tags
   this.genre = genre;
   this.duration = duration; 
-  this.userAvatar = userAvatar;
   this.username = username;
   this.numOfPlays = numOfPlays;
-
 
   this.makeModalContent()
 
@@ -115,13 +124,12 @@ Track.prototype.addMeToCatalog = function(catalog) {
   catalogEntry.setAttribute("class", "catalog-entry")
 
   var image = document.createElement("img")
-  image.setAttribute("src", this.artwork_url || this.avatar_url || "")
+  image.setAttribute("src", this.default_image_url)
   image.addEventListener("load", function() {$(image).animate({opacity:1})})
   var imageContainer = document.createElement("div")
   var catalogIndex = app.catalog.tracks.length
 
   imageContainer.setAttribute("class", "image-container")
-  
 
   catalogEntry.setAttribute("onclick", "app.catalog.tracks[" + catalogIndex + "].showMyModal()")
 
@@ -131,6 +139,9 @@ Track.prototype.addMeToCatalog = function(catalog) {
   imageContainer.appendChild(image)
   catalogEntry.appendChild(imageContainer)
   catalogEntry.appendChild(entryTitle)
+
+  // cacheImage = $(catalogEntry).append("<img>").addClass("hidden-cache-image")
+  // cacheImage.attr("src",this.default_image_url_300)
 
   this.rendered = catalogEntry
 
@@ -145,7 +156,7 @@ Track.prototype.makeModalContent = function() {
   if (!!this.artwork_url){
     html = html 
     html = html + "<div class = 't300img-container'>"
-    html = html + "<img src='" + this.artwork_url.replace( "large", "t300x300") + "'></div>"
+    html = html + "<img src='" + this.artwork_url_300 + "'></div>"
   };
 
   html = html + "<p>" + this.description + "</p>"
