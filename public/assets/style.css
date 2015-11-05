@@ -46,7 +46,7 @@ body {
 }
 
 .image-container {
-  background-image: url("img/default_image.png");
+  background-image: url("../img/default_image.png");
   width: 100px;
   height: 100px;
   margin: auto;
