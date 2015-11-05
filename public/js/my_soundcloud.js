@@ -75,8 +75,6 @@ function Catalog() {
   var ul = document.createElement('ul')
   this.element = document.getElementById("catalog");
 
-  // return this.element
-
 };
 
 Catalog.prototype = new App()
@@ -85,6 +83,7 @@ Catalog.prototype.addTrack = function(track) {
 
     this.element.appendChild(track.rendered)
     this.tracks.push(track)
+
 }
 
 Catalog.prototype.addCacheOnLoad = function() {
@@ -124,8 +123,9 @@ Track.prototype.addMeToCatalog = function(catalog) {
   catalogEntry.setAttribute("class", "catalog-entry")
 
   var image = document.createElement("img")
-  image.setAttribute("src", this.default_image_url)
-  image.addEventListener("load", function() {$(image).animate({opacity:1})})
+  var image_url =  this.artwork_url || this.avatar_url || ""
+  image.setAttribute("src", image_url)
+  
   var imageContainer = document.createElement("div")
   var catalogIndex = app.catalog.tracks.length
 
@@ -146,12 +146,18 @@ Track.prototype.addMeToCatalog = function(catalog) {
   this.rendered = catalogEntry
 
   app.catalog.addTrack(this)
-
+  
+  if(image_url == "") {
+    $(catalogEntry).animate({opacity:1})
+  }
+  else {
+    image.addEventListener("load", function() {$(catalogEntry).animate({opacity:1})})   
+  };
 }
 
 Track.prototype.makeModalContent = function() {
   
-  var html = "<p><i>by " + this.username + "</i></p>"
+  var html = "<p><i>from " + this.username + "</i></p>"
 
   if (!!this.artwork_url){
     html = html 
@@ -160,7 +166,6 @@ Track.prototype.makeModalContent = function() {
   };
 
   html = html + "<p>" + this.description + "</p>"
-  
   html = html + "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=" + this.uri + "&amp;color=0066cc'></iframe>"
   this.content = html;
   // return this.content
