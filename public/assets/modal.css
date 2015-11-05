@@ -48,7 +48,6 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  /*opacity: 1;*/
   transition: background-color 0.3s ease;
   transition: opacity 0.3 ease;
   z-index: 3
@@ -66,8 +65,8 @@ body {
   opacity: 0;
 }
 
-.my-modal p 
+/*.my-modal p 
 {
   overflow-y:scroll;
 }
-
+*/

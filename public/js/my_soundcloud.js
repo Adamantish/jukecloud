@@ -74,8 +74,6 @@ function Catalog() {
   var ul = document.createElement('ul')
   this.element = document.getElementById("catalog");
 
-  // return this.element
-
 };
 
 
@@ -85,6 +83,7 @@ Catalog.prototype.addTrack = function(track) {
 
     this.element.appendChild(track.rendered)
     this.tracks.push(track)
+
 }
 
 function Track(catalog, title, artwork_url, description, uri, genre, tags, duration, userAvatar, username, numOfPlays) {
@@ -101,7 +100,6 @@ function Track(catalog, title, artwork_url, description, uri, genre, tags, durat
   this.username = username;
   this.numOfPlays = numOfPlays;
 
-
   this.makeModalContent()
 
 };
@@ -115,14 +113,15 @@ Track.prototype.addMeToCatalog = function(catalog) {
   catalogEntry.setAttribute("class", "catalog-entry")
 
   var image = document.createElement("img")
-  image.setAttribute("src", this.artwork_url || this.avatar_url || "")
-  image.addEventListener("load", function() {$(image).animate({opacity:1})})
+  var image_url =  this.artwork_url || this.avatar_url || ""
+  image.setAttribute("src", image_url)
+  
+  
   var imageContainer = document.createElement("div")
   var catalogIndex = app.catalog.tracks.length
 
   imageContainer.setAttribute("class", "image-container")
   
-
   catalogEntry.setAttribute("onclick", "app.catalog.tracks[" + catalogIndex + "].showMyModal()")
 
   var entryTitle = document.createElement("p")
@@ -135,12 +134,18 @@ Track.prototype.addMeToCatalog = function(catalog) {
   this.rendered = catalogEntry
 
   app.catalog.addTrack(this)
-
+  
+  if(image_url == "") {
+    $(catalogEntry).animate({opacity:1})
+  }
+  else {
+    image.addEventListener("load", function() {$(catalogEntry).animate({opacity:1})})   
+  };
 }
 
 Track.prototype.makeModalContent = function() {
   
-  var html = "<p><i>by " + this.username + "</i></p>"
+  var html = "<p><i>from " + this.username + "</i></p>"
 
   if (!!this.artwork_url){
     html = html 

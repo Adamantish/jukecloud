@@ -11,13 +11,8 @@ body {
   max-width: 59em;
 }
 
-/*#catalog ul {
-  width: 40em;
-}*/
-
 #catalog ul li {
   margin: 1em;
-
 }
 
 .catalog-entry {
@@ -31,18 +26,15 @@ body {
   overflow: hidden;
   border-radius: 5px;
   background-color: white;
+  opacity: 0;
 
 }
-
 
 .catalog-entry p {
   height: 7em;
   padding: 1em;
   overflow: hidden;
-}
-
-.catalog-entry img {
-  opacity: 0
+  cursor: pointer;
 }
 
 .image-container {
@@ -85,7 +77,7 @@ body {
   margin-left:  auto;
   margin-right:  auto;
   position: relative;
-  max-width: 15em;
+  max-width: 20em;
   
 }
 
