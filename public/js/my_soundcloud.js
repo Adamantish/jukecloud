@@ -166,7 +166,7 @@ Track.prototype.makeModalContent = function() {
   };
 
   html = html + "<p>" + this.description + "</p>"
-  html = html + "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=" + this.uri + "&amp;color=0066cc'></iframe>"
+  html = html + "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=" + this.uri + "&amp;color=FF6900'></iframe>"
   this.content = html;
   // return this.content
 }
